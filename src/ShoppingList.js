@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import ShoppingListForm from './ShoppingListForm'
 
 class ShoppingList extends Component {
   constructor(props) {
@@ -6,13 +7,21 @@ class ShoppingList extends Component {
     this.state = {
       items: [{ name: 'Milk', qty: '2 gallons' }, { name: 'Bread', qty: '2 loaves' }]
     }
+
+    this.addItem = this.addItem.bind(this)
+  }
+
+  addItem(item) {
+    this.setState(st => ({
+      items: [...st.items, item]
+    }))
   }
 
   renderItems() {
     return (
       <ul>
         {this.state.items.map(item => (
-          <li key={item.id}>
+          <li>
             {item.name}:{item.qty}
           </li>
         ))}
@@ -24,6 +33,7 @@ class ShoppingList extends Component {
       <div>
         <h1>Shopping List</h1>
         {this.renderItems()}
+        <ShoppingListForm addItem={this.addItem} />
       </div>
     )
   }
